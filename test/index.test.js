@@ -7,7 +7,9 @@ jest.setTimeout(120 * 1000);
 
 describe("happy path", () => {
   beforeEach(() => {
-    fs.rmdirSync("./dist", { recursive: true });
+    if (fs.existsSync("./dist")) {
+      fs.rmdirSync("./dist", { recursive: true });
+    }
     fs.mkdirSync("./dist", { recursive: true });
   });
   test("can download successfully", async () => {
