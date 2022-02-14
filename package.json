@@ -3,6 +3,9 @@
   "version": "0.0.1-SNAPSHOT",
   "description": "Downloads CSV reports from Looker",
   "main": "src/index.js",
+  "publishConfig": {
+    "access": "public"
+  },
   "scripts": {
     "test": "jest test/*.test.js --coverage",
     "release": "np"
