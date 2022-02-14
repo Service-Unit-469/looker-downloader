@@ -1,6 +1,6 @@
 {
   "name": "@service-unit-469/looker-downloader",
-  "version": "0.0.1-SNAPSHOT",
+  "version": "1.0.0",
   "description": "Downloads CSV reports from Looker",
   "main": "src/index.js",
   "publishConfig": {
