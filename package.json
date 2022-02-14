@@ -1,10 +1,11 @@
 {
   "name": "@service-unit-469/looker-download",
-  "version": "1.0.0",
+  "version": "0.0.1-SNAPSHOT",
   "description": "Downloads CSV reports from Looker",
   "main": "src/index.js",
   "scripts": {
-    "test": "jest test/*.test.js --coverage"
+    "test": "jest test/*.test.js --coverage",
+    "release": "np"
   },
   "repository": {
     "type": "git",
@@ -32,6 +33,6 @@
     "jest": "^27.5.1"
   },
   "files": [
-      "src/*"
+    "src/*"
   ]
 }
