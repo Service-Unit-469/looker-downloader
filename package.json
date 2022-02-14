@@ -4,18 +4,16 @@
   "description": "Downloads CSV reports from Looker",
   "main": "src/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest test/*.test.js --coverage"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Service-Unit-469/looker-download.git"
   },
   "keywords": [
-    "Girl",
-    "Scouts",
+    "Girl Scouts",
     "Looker",
-    "Business",
-    "Intelligence"
+    "Business Intelligence"
   ],
   "author": "Dan Klco",
   "license": "MIT",
@@ -27,5 +25,11 @@
     "adm-zip": "^0.5.9",
     "glob": "^7.2.0",
     "puppeteer": "^13.3.1"
+  },
+  "devDependencies": {
+    "chai": "^4.3.6",
+    "dotenv": "^16.0.0",
+    "jest": "^27.5.1",
+    "np": "^7.6.0"
   }
 }
