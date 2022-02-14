@@ -1,0 +1,4 @@
+.github/*
+.vscode/*
+jsconfig.json
+test/*
