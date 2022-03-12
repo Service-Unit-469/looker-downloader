@@ -8,11 +8,11 @@ A library for downloading reports from Looker using puppeteer.
 
 First install the library:
 
-    npm i  @service-unit-469/looker-download
+    npm i  @service-unit-469/looker-downloader
 
 Then you can import and use the library:
 
-    const LookerDownload = require('@service-unit-469/looker-download');
+    const LookerDownload = require('@service-unit-469/looker-downloader');
 
     const downloader = new LookerDownload('https://test.looker.com', 'username','password');
     await downloader.startup();
