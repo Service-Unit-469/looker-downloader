@@ -1,39 +1,55 @@
 {
   "name": "@service-unit-469/looker-downloader",
-  "version": "1.0.0",
+  "version": "0.0.0-development",
   "description": "Downloads CSV reports from Looker",
-  "main": "src/index.js",
+  "main": "src/looker-download.js",
+  "bin": {
+    "looker-download": "src/cli.js"
+  },
   "publishConfig": {
     "access": "public"
   },
+  "type": "module",
   "scripts": {
-    "test": "jest test/*.test.js --coverage",
-    "release": "np"
+    "lint": "eslint . --fix",
+    "test": "c8 mocha test/*.test.js --coverage",
+    "docs": "npx --yes jsdoc-to-markdown -c .jsdoc.json --files 'src/*.js'  > docs/API.md",
+    "release": "np",
+    "semantic-release": "semantic-release"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Service-Unit-469/looker-downloader.git"
+    "url": "https://github.com/Service-Unit-469/looker-downloader.git"
   },
   "keywords": [
     "Girl Scouts",
     "Looker",
     "Business Intelligence"
   ],
-  "author": "Dan Klco",
+  "author": "Service Unit 469",
   "license": "Apache-2.0",
   "bugs": {
     "url": "https://github.com/Service-Unit-469/looker-downloader/issues"
   },
   "homepage": "https://github.com/Service-Unit-469/looker-downloader#readme",
   "dependencies": {
-    "adm-zip": "^0.5.9",
-    "glob": "^7.2.0",
-    "puppeteer": "^13.3.1"
+    "adm-zip": "^0.5.10",
+    "commander": "^10.0.1",
+    "glob": "^10.2.6",
+    "jsdoc-tsimport-plugin": "^1.0.5",
+    "puppeteer": "^20.5.0"
   },
   "devDependencies": {
-    "chai": "^4.3.6",
-    "dotenv": "^16.0.0",
-    "jest": "^27.5.1"
+    "@adobe/eslint-config-helix": "^2.0.2",
+    "@semantic-release/changelog": "^6.0.3",
+    "@semantic-release/git": "^10.0.1",
+    "@semantic-release/npm": "^10.0.3",
+    "c8": "^7.14.0",
+    "chai": "^4.3.7",
+    "dotenv": "^16.1.4",
+    "eslint": "^8.42.0",
+    "mocha": "^10.2.0",
+    "semantic-release": "^21.0.3"
   },
   "files": [
     "src/*"
