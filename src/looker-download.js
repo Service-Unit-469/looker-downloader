@@ -54,7 +54,14 @@ class LookerDownload {
   }
 
   /**
-   * Authenticates with Looker, must be called before downloading any reports
+   * @deprecated
+   */
+  async startup() {
+    await this.login();
+  }
+
+  /**
+   * Authenticates with Looker, must be called before downloading any reports.
    * @returns {Promise<void>}
    */
   async login() {
@@ -142,10 +149,17 @@ class LookerDownload {
    * Shutdowns the LookerDownloader, must be called when all downloads are complete.
    * @returns {Promise<void>}
    */
-  async shutdown() {
+  async close() {
     if (this.#browser) {
       await this.#browser.close();
     }
+  }
+
+  /**
+   * @deprecated
+   */
+  async shutdown() {
+    await this.close();
   }
 }
 

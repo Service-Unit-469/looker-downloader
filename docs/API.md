@@ -22,9 +22,11 @@ A client for downloading reports for looker
 
 * [LookerDownload](#LookerDownload)
     * [new LookerDownload(config)](#new_LookerDownload_new)
+    * ~~[.startup()](#LookerDownload+startup)~~
     * [.login()](#LookerDownload+login) ⇒ <code>Promise.&lt;void&gt;</code>
     * [.downloadReport(report, [filter], [destination])](#LookerDownload+downloadReport) ⇒ <code>Promise.&lt;void&gt;</code>
-    * [.shutdown()](#LookerDownload+shutdown) ⇒ <code>Promise.&lt;void&gt;</code>
+    * [.close()](#LookerDownload+close) ⇒ <code>Promise.&lt;void&gt;</code>
+    * ~~[.shutdown()](#LookerDownload+shutdown)~~
 
 <a name="new_LookerDownload_new"></a>
 
@@ -36,10 +38,16 @@ Construct a new LookerDownload instance
 | --- | --- | --- |
 | config | [<code>LookerDownloadConfig</code>](#LookerDownloadConfig) | the configuration for this instance |
 
+<a name="LookerDownload+startup"></a>
+
+### ~~lookerDownload.startup()~~
+***Deprecated***
+
+**Kind**: instance method of [<code>LookerDownload</code>](#LookerDownload)  
 <a name="LookerDownload+login"></a>
 
 ### lookerDownload.login() ⇒ <code>Promise.&lt;void&gt;</code>
-Authenticates with Looker, must be called before downloading any reports
+Authenticates with Looker, must be called before downloading any reports.
 
 **Kind**: instance method of [<code>LookerDownload</code>](#LookerDownload)  
 <a name="LookerDownload+downloadReport"></a>
@@ -56,10 +64,16 @@ zip'd CSVs to the destination file
 | [filter] | <code>Record.&lt;string, string&gt;</code> |  | the filter for the report |
 | [destination] | <code>string</code> | <code>&quot;report.csv&quot;</code> | the destination file to which to save the report |
 
+<a name="LookerDownload+close"></a>
+
+### lookerDownload.close() ⇒ <code>Promise.&lt;void&gt;</code>
+Shutdowns the LookerDownloader, must be called when all downloads are complete.
+
+**Kind**: instance method of [<code>LookerDownload</code>](#LookerDownload)  
 <a name="LookerDownload+shutdown"></a>
 
-### lookerDownload.shutdown() ⇒ <code>Promise.&lt;void&gt;</code>
-Shutdowns the LookerDownloader, must be called when all downloads are complete.
+### ~~lookerDownload.shutdown()~~
+***Deprecated***
 
 **Kind**: instance method of [<code>LookerDownload</code>](#LookerDownload)  
 <a name="LookerDownloadConfig"></a>
