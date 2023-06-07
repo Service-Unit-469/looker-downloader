@@ -1,0 +1,12 @@
+[
+    {
+        "report": 1077,
+        "filter": {},
+        "destination": "dist/report1.csv" 
+    },
+    {
+        "report": 107,
+        "filter": {},
+        "destination": "dist/report1.csv" 
+    }
+]

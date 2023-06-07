@@ -6,16 +6,30 @@ A library for downloading reports from Looker using puppeteer.
 
 ## Use
 
+### As a Library
+
 First install the library:
 
     npm i  @service-unit-469/looker-downloader
 
 Then you can import and use the library:
 
-    const LookerDownload = require('@service-unit-469/looker-downloader');
+    import { LookerDownload } from '@service-unit-469/looker-downloader';
 
     const downloader = new LookerDownload('https://test.looker.com', 'username','password');
-    await downloader.startup();
+    await downloader.login();
     await downloader.downloadReport(123,{},'./report.csv');
     downloader.shutdown();
+
+[API Documentation](./docs/API.md)
+
+### Via CLI
+
+This is also available as a CLI:
+
+    npx @service-unit-469/looker-downloader <download|download-reports> [options]
+
+Get more details on the commands and options with:
+
+    npx @service-unit-469/looker-downloader -h
 
