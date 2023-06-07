@@ -1,17 +1,22 @@
 name: CI Rease
 on:
   push:
-    branches: [ main ]
+    branches: [main]
 jobs:
-  test:
+  release:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v2
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
         with:
-          node-version: "18"
+          node-version: '18'
       - run: npm ci
       - run: npm test
+        env:
+          LOOKER_HOST: ${{ secrets.LOOKER_HOST}}
+          LOOKER_USERNAME: ${{ secrets.LOOKER_USERNAME}}
+          LOOKER_PASSWORD: ${{ secrets.LOOKER_PASSWORD}}
+          LOOKER_REPORT: ${{ secrets.LOOKER_REPORT}}
       - name: Release
         env:
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
