@@ -34,7 +34,7 @@
   "homepage": "https://github.com/Service-Unit-469/looker-downloader#readme",
   "dependencies": {
     "adm-zip": "^0.5.10",
-    "commander": "^10.0.1",
+    "commander": "^11.0.0",
     "glob": "^10.2.6",
     "jsdoc-tsimport-plugin": "^1.0.5",
     "puppeteer": "^20.5.0"
