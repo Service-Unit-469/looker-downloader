@@ -1,3 +1,10 @@
+# [1.2.0](https://github.com/Service-Unit-469/looker-downloader/compare/v1.1.2...v1.2.0) (2024-02-10)
+
+
+### Features
+
+* multi-file return files created ([8cb4063](https://github.com/Service-Unit-469/looker-downloader/commit/8cb406378fd3a56346e6c42bd619cf2d5315fc1b))
+
 ## [1.1.2](https://github.com/Service-Unit-469/looker-downloader/compare/v1.1.1...v1.1.2) (2024-02-10)
 
 
