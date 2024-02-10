@@ -1,3 +1,10 @@
+## [1.1.1](https://github.com/Service-Unit-469/looker-downloader/compare/v1.1.0...v1.1.1) (2024-02-10)
+
+
+### Bug Fixes
+
+* adding missed env variable ([1271140](https://github.com/Service-Unit-469/looker-downloader/commit/12711406cb6d551d07bb4ae67a61d7f28a855a13))
+
 # [1.1.0](https://github.com/Service-Unit-469/looker-downloader/compare/v1.0.0...v1.1.0) (2023-06-07)
 
 
