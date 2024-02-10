@@ -49,7 +49,38 @@ program
     console.log(
       `Report ${options.report} downloaded successfully to ${options.destination}`,
     );
-    await downloader.shutdown();
+    await downloader.close();
+  });
+
+program
+  .command('download-csvs')
+  .description('Download a report with multiple CSV files from Looker')
+  .requiredOption('--host <host>', 'the looker host')
+  .requiredOption('--username <username>', 'the looker username')
+  .requiredOption('--password <password>', 'the looker password')
+  .option('--debug', 'open in headful mode')
+  .requiredOption('--report <report>', 'the report to download')
+  .requiredOption(
+    '--filter <filter>',
+    'the filter to filter the report contents',
+    '{}',
+  )
+  .requiredOption(
+    '--folder <folder>',
+    'the folder to download te report',
+  )
+  .action(async (options) => {
+    const downloader = new LookerDownload(options);
+    await downloader.login();
+    await downloader.downloadReportFiles(
+      options.report,
+      options.filter,
+      options.folder,
+    );
+    console.log(
+      `Report ${options.report} downloaded successfully to ${options.folder}`,
+    );
+    await downloader.close();
   });
 
 program
@@ -76,7 +107,7 @@ program
       );
     }
     console.log('Reports downloaded successfully!');
-    await downloader.shutdown();
+    await downloader.close();
   });
 
 program.parse();

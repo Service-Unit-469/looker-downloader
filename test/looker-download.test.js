@@ -48,6 +48,28 @@ describe('Looker Download Tests', () => {
     assert.ok(existsSync('./dist/report.csv'));
   }).timeout(60000);
 
+  it('can download multifile successfully', async () => {
+    const downloader = new LookerDownload({
+      host: process.env.LOOKER_HOST,
+      username: process.env.LOOKER_USERNAME,
+      password: process.env.LOOKER_PASSWORD,
+    });
+    try {
+      await downloader.login();
+      await downloader.downloadReportFiles(
+        process.env.MULTIFILE_REPORT,
+        {
+          Year: 'Current Year',
+        },
+        './dist',
+      );
+    } finally {
+      await downloader.close();
+    }
+
+    assert.ok(existsSync('./dist'));
+  }).timeout(60000);
+
   it('wont download invalid report', async () => {
     const downloader = new LookerDownload({
       host: process.env.LOOKER_HOST,
@@ -66,7 +88,7 @@ describe('Looker Download Tests', () => {
         ),
       );
     } finally {
-      await downloader.shutdown();
+      await downloader.close();
     }
 
     assert.ok(!existsSync('./dist/report.csv'));
