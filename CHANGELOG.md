@@ -1,3 +1,10 @@
+## [1.1.2](https://github.com/Service-Unit-469/looker-downloader/compare/v1.1.1...v1.1.2) (2024-02-10)
+
+
+### Bug Fixes
+
+* fixing package issues ([2ae857e](https://github.com/Service-Unit-469/looker-downloader/commit/2ae857e06106bca66ec27b34d5dd37b0bacff544))
+
 ## [1.1.1](https://github.com/Service-Unit-469/looker-downloader/compare/v1.1.0...v1.1.1) (2024-02-10)
 
 
