@@ -1,3 +1,10 @@
+# [1.3.0](https://github.com/Service-Unit-469/looker-downloader/compare/v1.2.0...v1.3.0) (2024-02-10)
+
+
+### Features
+
+* adding support for multiple in the cli report config ([eb81b93](https://github.com/Service-Unit-469/looker-downloader/commit/eb81b9380620410d53de67b7804b067be5a08fdf))
+
 # [1.2.0](https://github.com/Service-Unit-469/looker-downloader/compare/v1.1.2...v1.2.0) (2024-02-10)
 
 
