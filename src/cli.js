@@ -65,10 +65,7 @@ program
     'the filter to filter the report contents',
     '{}',
   )
-  .requiredOption(
-    '--folder <folder>',
-    'the folder to download te report',
-  )
+  .requiredOption('--folder <folder>', 'the folder to download te report')
   .action(async (options) => {
     const downloader = new LookerDownload(options);
     await downloader.login();
@@ -100,11 +97,19 @@ program
 
     const reports = JSON.parse(await readFile(options.input));
     for await (const report of reports) {
-      await downloader.downloadReport(
-        report.report,
-        report.filter,
-        report.destination,
-      );
+      if (report.multiple) {
+        await downloader.downloadReportFiles(
+          report.report,
+          report.filter,
+          report.destination,
+        );
+      } else {
+        await downloader.downloadReport(
+          report.report,
+          report.filter,
+          report.destination,
+        );
+      }
     }
     console.log('Reports downloaded successfully!');
     await downloader.close();
