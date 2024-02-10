@@ -54,9 +54,10 @@ describe('Looker Download Tests', () => {
       username: process.env.LOOKER_USERNAME,
       password: process.env.LOOKER_PASSWORD,
     });
+    let files;
     try {
       await downloader.login();
-      await downloader.downloadReportFiles(
+      files = await downloader.downloadReportFiles(
         process.env.MULTIFILE_REPORT,
         {
           Year: 'Current Year',
@@ -67,7 +68,9 @@ describe('Looker Download Tests', () => {
       await downloader.close();
     }
 
-    assert.ok(existsSync('./dist'));
+    files.forEach((file) => {
+      assert.ok(existsSync(file));
+    });
   }).timeout(60000);
 
   it('wont download invalid report', async () => {

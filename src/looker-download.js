@@ -10,12 +10,10 @@
  * governing permissions and limitations under the License.
  */
 import AdmZip from 'adm-zip';
-import {
-  mkdir, mkdtemp, rm, writeFile,
-} from 'fs/promises';
+import { mkdir, mkdtemp, rm, writeFile } from 'fs/promises';
 import { sync as glob } from 'glob';
 import { tmpdir } from 'os';
-import { dirname, join } from 'path';
+import { dirname, join, resolve } from 'path';
 import puppeteer from 'puppeteer';
 
 /**
@@ -107,9 +105,7 @@ class LookerDownload {
   async login() {
     this.#log.info('Starting virtual browser...');
 
-    const {
-      debug, host, password, username,
-    } = this.#config;
+    const { debug, host, password, username } = this.#config;
 
     let headless = 'new';
     if (debug) {
@@ -169,7 +165,7 @@ class LookerDownload {
    * @param {number} report the report ID
    * @param {Record<string,string>} [filter] the filter for the report
    * @param {string} [folder] the destination folder to which to save the report
-   * @returns {Promise<void>}
+   * @returns {Promise<string[]>}
    */
   async downloadReportFiles(report, filter = {}, folder = 'report/') {
     let tmpDir = null;
@@ -184,15 +180,20 @@ class LookerDownload {
       }
 
       await mkdir(folder, { recursive: true });
-      await Promise.all(
+      const files = await Promise.all(
         csvs.map(async (entry) => {
           const csv = zip.readAsText(entry.entryName);
           const parent = dirname(join(folder, entry.entryName));
           await mkdir(parent, { recursive: true });
-          return writeFile(join(folder, entry.entryName), csv);
+          const fileName = join(folder, entry.entryName);
+          this.#log.info(`Writing ${entry.entryName} to ${fileName}`);
+          return writeFile(fileName, csv).then(() => fileName);
         }),
       );
-      this.#log.info(`Successfully wrote ${csvs.length} files to: ${folder}`);
+      this.#log.info(
+        `Successfully wrote ${files.length} files to: ${resolve(folder)}`,
+      );
+      return files;
     } finally {
       if (tmpDir) {
         await rm(tmpDir, { recursive: true });
