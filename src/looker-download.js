@@ -10,7 +10,9 @@
  * governing permissions and limitations under the License.
  */
 import AdmZip from 'adm-zip';
-import { mkdir, mkdtemp, rm, writeFile } from 'fs/promises';
+import {
+  mkdir, mkdtemp, rm, writeFile,
+} from 'fs/promises';
 import { sync as glob } from 'glob';
 import { tmpdir } from 'os';
 import { dirname, join, resolve } from 'path';
@@ -105,7 +107,9 @@ class LookerDownload {
   async login() {
     this.#log.info('Starting virtual browser...');
 
-    const { debug, host, password, username } = this.#config;
+    const {
+      debug, host, password, username,
+    } = this.#config;
 
     let headless = 'new';
     if (debug) {
