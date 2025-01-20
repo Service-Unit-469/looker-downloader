@@ -35,7 +35,7 @@
   "dependencies": {
     "adm-zip": "^0.5.10",
     "commander": "^12.0.0",
-    "glob": "^10.3.10",
+    "glob": "^11.0.1",
     "jsdoc-tsimport-plugin": "^1.0.5",
     "puppeteer": "^22.0.0"
   },
