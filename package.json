@@ -37,7 +37,7 @@
     "commander": "^12.0.0",
     "glob": "^10.3.10",
     "jsdoc-tsimport-plugin": "^1.0.5",
-    "puppeteer": "^22.0.0"
+    "puppeteer": "^24.2.0"
   },
   "devDependencies": {
     "@adobe/eslint-config-helix": "^2.0.6",
