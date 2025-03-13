@@ -25,3 +25,4 @@ jobs:
           LOOKER_USERNAME: ${{ secrets.LOOKER_USERNAME}}
           LOOKER_PASSWORD: ${{ secrets.LOOKER_PASSWORD}}
           LOOKER_REPORT: ${{ secrets.LOOKER_REPORT}}
+          MULTIFILE_REPORT: ${{ secrets.MULTIFILE_REPORT}}
