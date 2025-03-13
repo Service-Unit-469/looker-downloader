@@ -11,7 +11,8 @@
   },
   "type": "module",
   "scripts": {
-    "lint": "eslint . --fix",
+    "lint": "eslint . && prettier --check .",
+    "lint:fix": "eslint . --fix && prettier --write .",
     "test": "c8 mocha test/*.test.js --coverage",
     "docs": "npx --yes jsdoc-to-markdown -c .jsdoc.json --files 'src/*.js'  > docs/API.md",
     "release": "np",
@@ -40,7 +41,6 @@
     "puppeteer": "^24.4.0"
   },
   "devDependencies": {
-    "@adobe/eslint-config-helix": "^2.0.6",
     "@semantic-release/changelog": "^6.0.3",
     "@semantic-release/git": "^10.0.1",
     "@semantic-release/npm": "^11.0.2",
@@ -48,7 +48,9 @@
     "chai": "^5.0.3",
     "dotenv": "^16.4.1",
     "eslint": "^9.22.0",
+    "eslint-plugin-mocha": "^10.5.0",
     "mocha": "^10.3.0",
+    "prettier": "^3.5.3",
     "semantic-release": "^23.0.2"
   },
   "files": [

@@ -9,6 +9,8 @@
  * OF ANY KIND, either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
+
+/** eslint-ignore mocha/no-mocha-arrows */
 import dotenv from 'dotenv';
 import { existsSync } from 'fs';
 import { rm, mkdir } from 'fs/promises';
@@ -18,19 +20,20 @@ import { LookerDownload } from '../src/looker-download.js';
 dotenv.config();
 
 /* eslint-env mocha */
-describe('Looker Download Tests', () => {
-  beforeEach(async () => {
+describe('Looker Download Tests', function () {
+  beforeEach(async function () {
     if (existsSync('./dist')) {
       await rm('./dist', { recursive: true });
     }
     await mkdir('./dist', { recursive: true });
   });
 
-  it('can download successfully', async () => {
+  it('can download successfully', async function () {
     const downloader = new LookerDownload({
       host: process.env.LOOKER_HOST,
       username: process.env.LOOKER_USERNAME,
       password: process.env.LOOKER_PASSWORD,
+      headless: false,
     });
     try {
       await downloader.login();
@@ -48,7 +51,7 @@ describe('Looker Download Tests', () => {
     assert.ok(existsSync('./dist/report.csv'));
   }).timeout(60000);
 
-  it('can download multifile successfully', async () => {
+  it('can download multifile successfully', async function () {
     const downloader = new LookerDownload({
       host: process.env.LOOKER_HOST,
       username: process.env.LOOKER_USERNAME,
@@ -73,7 +76,7 @@ describe('Looker Download Tests', () => {
     });
   }).timeout(60000);
 
-  it('wont download invalid report', async () => {
+  it('wont download invalid report', async function () {
     const downloader = new LookerDownload({
       host: process.env.LOOKER_HOST,
       username: process.env.LOOKER_USERNAME,
