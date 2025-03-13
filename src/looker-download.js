@@ -10,9 +10,7 @@
  * governing permissions and limitations under the License.
  */
 import AdmZip from 'adm-zip';
-import {
-  mkdir, mkdtemp, rm, writeFile,
-} from 'fs/promises';
+import { mkdir, mkdtemp, rm, writeFile } from 'fs/promises';
 import { sync as glob } from 'glob';
 import { tmpdir } from 'os';
 import { dirname, join, resolve } from 'path';
@@ -66,7 +64,7 @@ class LookerDownload {
     }/dashboards/${report}/downloadzip?filters=${encodeURIComponent(
       JSON.stringify(filter),
     )}`;
-    // eslint-disable-next-line no-underscore-dangle
+
     await this.#page._client().send('Page.setDownloadBehavior', {
       behavior: 'allow',
       downloadPath: tmpDir,
@@ -107,11 +105,9 @@ class LookerDownload {
   async login() {
     this.#log.info('Starting virtual browser...');
 
-    const {
-      debug, host, password, username,
-    } = this.#config;
+    const { debug, host, password, username } = this.#config;
 
-    let headless = 'new';
+    let headless = true;
     if (debug) {
       headless = false;
     }
@@ -123,6 +119,22 @@ class LookerDownload {
     await this.#page.goto(`${host}/login`, {
       waitUntil: 'networkidle0',
     });
+
+    const emailLogin = await this.#page.waitForSelector(
+      'input[name=email],a[href="/login/email"]',
+    );
+    const type = await emailLogin.evaluate((el) => el.tagName.toLowerCase());
+
+    if (type === 'a') {
+      this.#log.info('Using email login');
+      await Promise.all([
+        this.#page.waitForNavigation(),
+        await this.#page.click('a[href="/login/email"]', {
+          waitUntil: 'networkidle0',
+        }),
+      ]);
+      await this.#page.waitForSelector('input[name=email]');
+    } 
 
     await this.#page.type('input[name=email]', username);
     await this.#page.type('input[name=password]', password);

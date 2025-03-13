@@ -32,4 +32,3 @@ This is also available as a CLI:
 Get more details on the commands and options with:
 
     npx @service-unit-469/looker-downloader -h
-
