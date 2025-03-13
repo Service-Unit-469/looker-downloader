@@ -21,6 +21,8 @@ dotenv.config();
 
 /* eslint-env mocha */
 describe('Looker Download Tests', function () {
+  this.retries(3);
+
   beforeEach(async function () {
     if (existsSync('./dist')) {
       await rm('./dist', { recursive: true });
@@ -33,7 +35,6 @@ describe('Looker Download Tests', function () {
       host: process.env.LOOKER_HOST,
       username: process.env.LOOKER_USERNAME,
       password: process.env.LOOKER_PASSWORD,
-      headless: false,
     });
     try {
       await downloader.login();
