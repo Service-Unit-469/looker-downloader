@@ -107,7 +107,7 @@ class LookerDownload {
 
     const { debug, host, password, username } = this.#config;
 
-    let headless = false;
+    let headless = true;
     if (debug) {
       headless = false;
     }
