@@ -1,3 +1,10 @@
+## [1.3.1](https://github.com/Service-Unit-469/looker-downloader/compare/v1.3.0...v1.3.1) (2025-03-13)
+
+
+### Bug Fixes
+
+* support email login link ([#87](https://github.com/Service-Unit-469/looker-downloader/issues/87)) ([b11cfe8](https://github.com/Service-Unit-469/looker-downloader/commit/b11cfe81ae11452214e0b72c6bed6db2643f3137))
+
 # [1.3.0](https://github.com/Service-Unit-469/looker-downloader/compare/v1.2.0...v1.3.0) (2024-02-10)
 
 ### Features
