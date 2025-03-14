@@ -1,6 +1,6 @@
 {
   "name": "@service-unit-469/looker-downloader",
-  "version": "1.3.0",
+  "version": "1.3.1",
   "description": "Downloads CSV reports from Looker",
   "main": "src/looker-download.js",
   "bin": {
@@ -44,14 +44,14 @@
     "@semantic-release/changelog": "^6.0.3",
     "@semantic-release/git": "^10.0.1",
     "@semantic-release/npm": "^11.0.2",
-    "c8": "^9.1.0",
+    "c8": "^10.1.3",
     "chai": "^5.0.3",
     "dotenv": "^16.4.1",
     "eslint": "^9.22.0",
     "eslint-plugin-mocha": "^10.5.0",
-    "mocha": "^10.3.0",
+    "mocha": "^11.1.0",
     "prettier": "^3.5.3",
-    "semantic-release": "^23.0.2"
+    "semantic-release": "^24.2.3"
   },
   "files": [
     "src/*"
