@@ -134,7 +134,7 @@ class LookerDownload {
         }),
       ]);
       await this.#page.waitForSelector('input[name=email]');
-    } 
+    }
 
     await this.#page.type('input[name=email]', username);
     await this.#page.type('input[name=password]', password);
