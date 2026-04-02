@@ -10,7 +10,6 @@
  * governing permissions and limitations under the License.
  */
 
-/** eslint-ignore mocha/no-mocha-arrows */
 import dotenv from 'dotenv';
 import { existsSync } from 'fs';
 import { rm, mkdir } from 'fs/promises';
@@ -19,7 +18,6 @@ import { LookerDownload } from '../src/looker-download.js';
 
 dotenv.config();
 
-/* eslint-env mocha */
 describe('Looker Download Tests', function () {
   this.retries(3);
 
@@ -99,5 +97,5 @@ describe('Looker Download Tests', function () {
     }
 
     assert.ok(!existsSync('./dist/report.csv'));
-  }).timeout(60000);
+  }).timeout(240_000);
 });

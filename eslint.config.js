@@ -5,7 +5,7 @@ import mochaPlugin from 'eslint-plugin-mocha';
 
 /** @type {import('eslint').Linter.Config[]} */
 export default [
-  { languageOptions: { globals: globals.node } },
+  { languageOptions: { globals: { ...globals.node, ...globals.mocha } } },
   pluginJs.configs.recommended,
   mochaPlugin.configs.recommended,
   globalIgnores(['coverage/', 'dist/', 'node_modules/']),
