@@ -65,7 +65,7 @@ program
     'the filter to filter the report contents',
     '{}',
   )
-  .requiredOption('--folder <folder>', 'the folder to download te report')
+  .requiredOption('--folder <folder>', 'the folder to download the report')
   .action(async (options) => {
     const downloader = new LookerDownload(options);
     await downloader.login();

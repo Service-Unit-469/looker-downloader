@@ -15,6 +15,7 @@ import { sync as glob } from 'glob';
 import { tmpdir } from 'os';
 import { dirname, join, resolve } from 'path';
 import puppeteer from 'puppeteer';
+import pRetry from 'p-retry';
 
 /**
  * @typedef LookerDownloadConfig The configuration for the looker download function
@@ -77,17 +78,29 @@ class LookerDownload {
       this.#log.debug(`Expected network abort ${e}`);
     }
 
-    await new Promise((r) => {
-      setTimeout(r, 5000);
-    });
-
+    const fileName = await pRetry(
+      () => {
+        this.#log.info(`Checking for downloaded file in ${tmpDir}...`);
+        const name = glob(`${tmpDir}/*.zip`)[0];
+        if (!name) {
+          throw new Error(
+            'Failed to download file, usually due to a bad report configuration or authentication. Try again with headless off.',
+          );
+        }
+        return name;
+      },
+      {
+        onFailedAttempt: ({ attemptNumber, retriesLeft }) => {
+          this.#log.info(
+            `[${attemptNumber}/10] Downloaded file not found yet, ${retriesLeft} retries left...`,
+          );
+        },
+        retries: 9,
+        factor: 1.5,
+        minTimeout: 2000,
+      },
+    );
     this.#log.info('Unpacking ZIP archive...');
-    const fileName = glob(`${tmpDir}/*.zip`)[0];
-    if (!fileName) {
-      throw new Error(
-        'Failed to download file, usually due to a bad report configuration or authentication. Try again with headless off.',
-      );
-    }
     return new AdmZip(fileName);
   }
 
@@ -112,7 +125,10 @@ class LookerDownload {
       headless = false;
     }
 
-    this.#browser = await puppeteer.launch({ headless });
+    this.#browser = await puppeteer.launch({
+      headless,
+      args: ['--no-sandbox', '--disable-setuid-sandbox'],
+    });
     this.#page = await this.#browser.newPage();
 
     this.#log.info('Logging in to Looker...');
