@@ -125,7 +125,10 @@ class LookerDownload {
       headless = false;
     }
 
-    this.#browser = await puppeteer.launch({ headless });
+    this.#browser = await puppeteer.launch({
+      headless,
+      args: ['--no-sandbox', '--disable-setuid-sandbox'],
+    });
     this.#page = await this.#browser.newPage();
 
     this.#log.info('Logging in to Looker...');
