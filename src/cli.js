@@ -15,12 +15,7 @@ import { readFile } from 'fs/promises';
 import { Command } from 'commander';
 import { LookerDownload } from './looker-download.js';
 
-const program = new Command();
-
-program
-  .name('looker-download')
-  .description('CLI for downloading reports from Looker')
-  .requiredOption('--host <host>', 'the looker host', process.env.LOOKER_HOST)
+const addCommonOptions = (cmd) => cmd.requiredOption('--host <host>', 'the looker host', process.env.LOOKER_HOST)
   .requiredOption(
     '--username <username>',
     'the looker username',
@@ -33,9 +28,16 @@ program
   )
   .option('--debug', 'enable headful mode');
 
+
+const program = new Command();
+
 program
+  .name('looker-download')
+  .description('CLI for downloading reports from Looker')
+
+  addCommonOptions(program
   .command('download')
-  .description('Download a report from Looker')
+  .description('Download a report from Looker'))
   .requiredOption('--report <report>', 'the report to download')
   .requiredOption(
     '--filter <filter>',
@@ -60,9 +62,9 @@ program
     await downloader.close();
   });
 
-program
+  addCommonOptions(program
   .command('download-csvs')
-  .description('Download a report with multiple CSV files from Looker')
+  .description('Download a report with multiple CSV files from Looker'))
   .requiredOption('--report <report>', 'the report to download')
   .requiredOption(
     '--filter <filter>',
@@ -84,13 +86,9 @@ program
     await downloader.close();
   });
 
-program
+  addCommonOptions(program
   .command('download-reports')
-  .description('Download multiple reports from Looker')
-  .requiredOption(
-    '--input <input>',
-    'a JSON file containing the reports to download',
-  )
+  .description('Download multiple reports from Looker'))
   .action(async (options) => {
     const downloader = new LookerDownload(options);
     await downloader.login();
