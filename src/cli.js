@@ -92,7 +92,11 @@ addCommonOptions(
 addCommonOptions(
   program
     .command('download-reports')
-    .description('Download multiple reports from Looker'),
+    .description('Download multiple reports from Looker')
+    .requiredOption(
+      '--input <input>',
+      'a JSON file containing the reports to download',
+    ),
 ).action(async (options) => {
   const downloader = new LookerDownload(options);
   await downloader.login();
