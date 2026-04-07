@@ -1,3 +1,10 @@
+# [1.4.0](https://github.com/Service-Unit-469/looker-downloader/compare/v1.3.1...v1.4.0) (2026-04-07)
+
+
+### Features
+
+* improve download timeouts ([#230](https://github.com/Service-Unit-469/looker-downloader/issues/230)) ([19ee3b5](https://github.com/Service-Unit-469/looker-downloader/commit/19ee3b5f1934232335f072bbaa488991920a0c33))
+
 ## [1.3.1](https://github.com/Service-Unit-469/looker-downloader/compare/v1.3.0...v1.3.1) (2025-03-13)
 
 ### Bug Fixes
