@@ -21,8 +21,16 @@ program
   .name('looker-download')
   .description('CLI for downloading reports from Looker')
   .requiredOption('--host <host>', 'the looker host', process.env.LOOKER_HOST)
-  .requiredOption('--username <username>', 'the looker username', process.env.LOOKER_USERNAME)
-  .requiredOption('--password <password>', 'the looker password', process.env.LOOKER_PASSWORD)
+  .requiredOption(
+    '--username <username>',
+    'the looker username',
+    process.env.LOOKER_USERNAME,
+  )
+  .requiredOption(
+    '--password <password>',
+    'the looker password',
+    process.env.LOOKER_PASSWORD,
+  )
   .option('--debug', 'enable headful mode');
 
 program
