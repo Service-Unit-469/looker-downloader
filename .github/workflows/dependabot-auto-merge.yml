@@ -16,7 +16,7 @@ jobs:
   auto-merge:
     runs-on: ubuntu-latest
     # Only process Dependabot PRs
-    if: github.actor == 'dependabot[bot]'
+    if: github.event.pull_request.user.login == 'dependabot[bot]'
     steps:
       - name: Fetch Dependabot metadata
         id: metadata
