@@ -1,3 +1,9 @@
+# Notice
+
+This file is no longer used, please refer to releases in: https://github.com/Service-Unit-469/looker-downloader/releases
+
+-----
+
 # [1.4.0](https://github.com/Service-Unit-469/looker-downloader/compare/v1.3.1...v1.4.0) (2026-04-07)
 
 

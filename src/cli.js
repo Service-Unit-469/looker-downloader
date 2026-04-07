@@ -19,15 +19,15 @@ const program = new Command();
 
 program
   .name('looker-download')
-  .description('CLI for downloading reports from Looker');
+  .description('CLI for downloading reports from Looker')
+  .requiredOption('--host <host>', 'the looker host', process.env.LOOKER_HOST)
+  .requiredOption('--username <username>', 'the looker username', process.env.LOOKER_USERNAME)
+  .requiredOption('--password <password>', 'the looker password', process.env.LOOKER_PASSWORD)
+  .option('--debug', 'enable headful mode');
 
 program
   .command('download')
   .description('Download a report from Looker')
-  .requiredOption('--host <host>', 'the looker host')
-  .requiredOption('--username <username>', 'the looker username')
-  .requiredOption('--password <password>', 'the looker password')
-  .option('--debug', 'open in headful mode')
   .requiredOption('--report <report>', 'the report to download')
   .requiredOption(
     '--filter <filter>',
@@ -55,10 +55,6 @@ program
 program
   .command('download-csvs')
   .description('Download a report with multiple CSV files from Looker')
-  .requiredOption('--host <host>', 'the looker host')
-  .requiredOption('--username <username>', 'the looker username')
-  .requiredOption('--password <password>', 'the looker password')
-  .option('--debug', 'open in headful mode')
   .requiredOption('--report <report>', 'the report to download')
   .requiredOption(
     '--filter <filter>',
@@ -83,10 +79,6 @@ program
 program
   .command('download-reports')
   .description('Download multiple reports from Looker')
-  .requiredOption('--host <host>', 'the looker host')
-  .requiredOption('--username <username>', 'the looker username')
-  .requiredOption('--password <password>', 'the looker password')
-  .option('--debug', 'enable headful mode')
   .requiredOption(
     '--input <input>',
     'a JSON file containing the reports to download',
