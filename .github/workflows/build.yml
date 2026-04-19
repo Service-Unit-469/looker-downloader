@@ -26,3 +26,14 @@ jobs:
           LOOKER_PASSWORD: ${{ secrets.LOOKER_PASSWORD}}
           LOOKER_REPORT: ${{ secrets.LOOKER_REPORT}}
           MULTIFILE_REPORT: ${{ secrets.MULTIFILE_REPORT}}
+  automerge:
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      pull-requests: write
+      contents: write
+    steps:
+      - uses: fastify/github-action-merge-dependabot@v3
+        with:
+          target: 'minor'
+          target-development: any
