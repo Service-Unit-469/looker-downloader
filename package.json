@@ -38,7 +38,7 @@
     "glob": "^13.0.6",
     "jsdoc-tsimport-plugin": "^1.0.5",
     "p-retry": "^8.0.0",
-    "puppeteer": "^24.4.0"
+    "puppeteer": "^25.0.2"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
