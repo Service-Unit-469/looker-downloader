@@ -33,7 +33,7 @@
   },
   "homepage": "https://github.com/Service-Unit-469/looker-downloader#readme",
   "dependencies": {
-    "adm-zip": "^0.5.17",
+    "adm-zip": "^0.6.0",
     "commander": "^15.0.0",
     "glob": "^13.0.6",
     "jsdoc-tsimport-plugin": "^1.0.5",
