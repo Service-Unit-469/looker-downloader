@@ -14,6 +14,8 @@ import { mkdir, mkdtemp, rm, writeFile } from 'fs/promises';
 import { sync as glob } from 'glob';
 import { tmpdir } from 'os';
 import { dirname, join, resolve } from 'path';
+import { createInterface } from 'readline/promises';
+import { stdin, stdout } from 'process';
 import puppeteer from 'puppeteer';
 import pRetry from 'p-retry';
 
@@ -22,7 +24,10 @@ import pRetry from 'p-retry';
  * @property {string} host the host to connect to
  * @property {string} username the username to connect with
  * @property {string} password the password to connect with
- * @property {boolean} [headless] if puppeteer should run in headless or headful mode
+ * @property {Function} [authorizationCodeProvider] async callback to obtain a one-time code
+ * @property {string} [userDataDir] persistent Puppeteer profile directory
+ * @property {boolean} [rememberDevice] mark the Looker browser as trusted during TOTP login
+ * @property {boolean} [debug] enable headful browser mode
  * @property {any} [log] a logger to use, by default will use console
  */
 
@@ -118,16 +123,13 @@ class LookerDownload {
   async login() {
     this.#log.info('Starting virtual browser...');
 
-    const { debug, host, password, username } = this.#config;
-
-    let headless = true;
-    if (debug) {
-      headless = false;
-    }
-
+    const { host, password, username } = this.#config;
     this.#browser = await puppeteer.launch({
-      headless,
+      headless: !this.#config.debug,
       args: ['--no-sandbox', '--disable-setuid-sandbox'],
+      ...(this.#config.userDataDir
+        ? { userDataDir: this.#config.userDataDir }
+        : {}),
     });
     this.#page = await this.#browser.newPage();
 
@@ -135,6 +137,15 @@ class LookerDownload {
     await this.#page.goto(`${host}/login`, {
       waitUntil: 'networkidle0',
     });
+
+    const currentUrl = new URL(this.#page.url());
+    if (
+      currentUrl.origin === new URL(host).origin &&
+      !currentUrl.pathname.startsWith('/login')
+    ) {
+      this.#log.info('Using the existing Looker browser session.');
+      return;
+    }
 
     const emailLogin = await this.#page.waitForSelector(
       'input[name=email],a[href="/login/email"]',
@@ -158,6 +169,92 @@ class LookerDownload {
       this.#page.waitForNavigation(),
       this.#page.click('input[type=submit]'),
     ]);
+
+    await this.#handleTotpChallenge();
+  }
+
+  async #handleTotpChallenge() {
+    const selector = 'input[name="totp"]';
+
+    let challengeInput;
+    try {
+      challengeInput = await this.#page.waitForSelector(selector, {
+        timeout: 3000,
+        visible: true,
+      });
+    } catch {
+      return;
+    }
+
+    if (this.#config.rememberDevice) {
+      const rememberCheckbox = await this.#page.$(
+        'input[type="checkbox"][name="remember"]',
+      );
+      if (
+        rememberCheckbox &&
+        !(await rememberCheckbox.evaluate((element) => element.checked))
+      ) {
+        await rememberCheckbox.click();
+      }
+    }
+
+    let code;
+    if (this.#config.authorizationCodeProvider) {
+      code = await this.#config.authorizationCodeProvider({
+        host: this.#config.host,
+        username: this.#config.username,
+      });
+    } else {
+      if (!stdin.isTTY) {
+        throw new Error(
+          'Looker requested a one-time code, but no interactive terminal is available. Configure authorizationCodeProvider.',
+        );
+      }
+
+      const prompt = createInterface({ input: stdin, output: stdout });
+      try {
+        code = await prompt.question('Enter the current one time code: ');
+      } finally {
+        prompt.close();
+      }
+    }
+
+    code = String(code || '').trim();
+    if (!/^\d+$/.test(code)) {
+      throw new Error(
+        'The Looker authorization code must contain only digits.',
+      );
+    }
+
+    await challengeInput.type(code);
+
+    const submitButton = await this.#page.$(
+      'button[type="submit"],input[type="submit"]',
+    );
+    const navigation = this.#page
+      .waitForNavigation({ waitUntil: 'networkidle0', timeout: 10_000 })
+      .catch(() => null);
+    if (submitButton) {
+      await submitButton.click();
+    } else {
+      await challengeInput.press('Enter');
+    }
+    await navigation;
+
+    let challengeStillVisible;
+    try {
+      challengeStillVisible = await this.#page.waitForSelector(selector, {
+        timeout: 500,
+        visible: true,
+      });
+    } catch {
+      challengeStillVisible = null;
+    }
+    if (challengeStillVisible) {
+      throw new Error(
+        'One-time-code authorization did not complete. Check the code and Looker challenge field.',
+      );
+    }
   }
 
   /**

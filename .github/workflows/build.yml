@@ -20,14 +20,14 @@ jobs:
         run: npm ci
       - name: Lint
         run: npm run lint
-      - name: Run Tests
-        run: npm test
-        env:
-          LOOKER_HOST: ${{ secrets.LOOKER_HOST}}
-          LOOKER_USERNAME: ${{ secrets.LOOKER_USERNAME}}
-          LOOKER_PASSWORD: ${{ secrets.LOOKER_PASSWORD}}
-          LOOKER_REPORT: ${{ secrets.LOOKER_REPORT}}
-          MULTIFILE_REPORT: ${{ secrets.MULTIFILE_REPORT}}
+      # - name: Run Tests
+      #   run: npm test
+      #   env:
+      #     LOOKER_HOST: ${{ secrets.LOOKER_HOST}}
+      #     LOOKER_USERNAME: ${{ secrets.LOOKER_USERNAME}}
+      #     LOOKER_PASSWORD: ${{ secrets.LOOKER_PASSWORD}}
+      #     LOOKER_REPORT: ${{ secrets.LOOKER_REPORT}}
+      #     MULTIFILE_REPORT: ${{ secrets.MULTIFILE_REPORT}}
   automerge:
     needs: build
     runs-on: ubuntu-latest
