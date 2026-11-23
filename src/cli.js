@@ -28,6 +28,11 @@ const addCommonOptions = (cmd) =>
       'the looker password',
       process.env.LOOKER_PASSWORD,
     )
+    .option(
+      '--user-data-dir <path>',
+      'persistent Puppeteer profile directory (prefer LOOKER_USER_DATA_DIR)',
+      process.env.LOOKER_USER_DATA_DIR,
+    )
     .option('--debug', 'enable headful mode');
 
 const program = new Command();

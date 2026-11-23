@@ -44,7 +44,7 @@ Construct a new LookerDownload instance
 
 ### ~~lookerDownload.startup()~~
 
-**_Deprecated_**
+_**Deprecated**_
 
 **Kind**: instance method of [<code>LookerDownload</code>](#LookerDownload)  
 <a name="LookerDownload+login"></a>
@@ -95,7 +95,7 @@ Shutdowns the LookerDownloader, must be called when all downloads are complete.
 
 ### ~~lookerDownload.shutdown()~~
 
-**_Deprecated_**
+_**Deprecated**_
 
 **Kind**: instance method of [<code>LookerDownload</code>](#LookerDownload)  
 <a name="LookerDownloadConfig"></a>
@@ -105,10 +105,13 @@ Shutdowns the LookerDownloader, must be called when all downloads are complete.
 **Kind**: global typedef  
 **Properties**
 
-| Name       | Type                 | Description                                         |
-| ---------- | -------------------- | --------------------------------------------------- |
-| host       | <code>string</code>  | the host to connect to                              |
-| username   | <code>string</code>  | the username to connect with                        |
-| password   | <code>string</code>  | the password to connect with                        |
-| [headless] | <code>boolean</code> | if puppeteer should run in headless or headful mode |
-| [log]      | <code>any</code>     | a logger to use, by default will use console        |
+| Name                        | Type                  | Description                                          |
+| --------------------------- | --------------------- | ---------------------------------------------------- |
+| host                        | <code>string</code>   | the host to connect to                               |
+| username                    | <code>string</code>   | the username to connect with                         |
+| password                    | <code>string</code>   | the password to connect with                         |
+| [authorizationCodeProvider] | <code>function</code> | async callback to obtain a one-time code             |
+| [userDataDir]               | <code>string</code>   | persistent Puppeteer profile directory               |
+| [rememberDevice]            | <code>boolean</code>  | mark the Looker browser as trusted during TOTP login |
+| [debug]                     | <code>boolean</code>  | enable headful browser mode                          |
+| [log]                       | <code>any</code>      | a logger to use, by default will use console         |

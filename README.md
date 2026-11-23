@@ -29,6 +29,13 @@ This is also available as a CLI:
 
     npx @service-unit-469/looker-downloader <download|download-reports> [options]
 
+When Looker requests its authenticator code, the CLI detects the `totp` field
+and prompts for the current code.
+
+Looker also offers a trusted-computer option for a limited period. To retain
+that trusted-browser state between runs, set `LOOKER_USER_DATA_DIR` to a private,
+persistent directory.
+
 Get more details on the commands and options with:
 
     npx @service-unit-469/looker-downloader -h
